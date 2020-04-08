@@ -1,5 +1,6 @@
 package com.ecut.wang.handler;
 
+import com.ecut.wang.pojo.House;
 import com.ecut.wang.pojo.Owner;
 import com.ecut.wang.service.IOwnerService;
 import com.ecut.wang.vo.Result;
@@ -39,6 +40,12 @@ public class OwnerHandler {
     @ResponseBody
     public Result updateOwner(Owner owner) {
         Result result = ownerService.updateOwner(owner);
+        return result;
+    }
+    @RequestMapping("InsertNewOwner")
+    @ResponseBody
+    public Result InsertNewOwner(Owner owner, House house){
+        Result result =ownerService.InsertNewOwner(owner,house);
         return result;
     }
 }

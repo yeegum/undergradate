@@ -1,6 +1,7 @@
 package com.ecut.wang.service.Impl;
 
 import com.ecut.wang.dao.IOwnerDao;
+import com.ecut.wang.pojo.House;
 import com.ecut.wang.pojo.Owner;
 import com.ecut.wang.service.IOwnerService;
 import com.ecut.wang.vo.Result;
@@ -63,11 +64,14 @@ public class OwnerServiceImpl implements IOwnerService {
         return result;
     }
     @Override
-    public Result InsertNewOwner(Owner owner) {
+    public Result InsertNewOwner(Owner owner, House house) {
         Result result=new Result();
-        owner.setOwnerID(UUID.randomUUID().toString());
-        owner.
-        if (ownerDao.InsertNewOwner(owner)!=null){
+        String OwnerID = String.valueOf(System.currentTimeMillis()/1000);
+        String HouseID = String.valueOf(System.currentTimeMillis()/1000);
+        owner.setOwnerID(OwnerID);
+        house.setHouseID(HouseID);
+        house.setOwnerID(OwnerID);
+        if (ownerDao.InsertNewOwner(owner)!=-1&&ownerDao.InsertOwnerHouse(house)!=-1){
             result.setCode(Result.SUCCESS_CODE);
             result.setMsg("新增成功");
         }else {

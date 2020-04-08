@@ -1,5 +1,6 @@
 package com.ecut.wang.dao;
 
+import com.ecut.wang.pojo.House;
 import com.ecut.wang.pojo.Owner;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,4 +12,5 @@ public interface IOwnerDao {
      Owner getOwnerInfoById(String OwnerID);
      Integer InsertNewOwner(Owner owner);
      Integer updateOwner(Owner owner);
+     Integer InsertOwnerHouse(House house);
 }

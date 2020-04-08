@@ -36,7 +36,11 @@ where a.OwnerID=#{OwnerID}
      </select>
      <insert id="InsertNewOwner">
           insert into OwnerInfo (OwnerID,OwnerPwd,OwnerName,Sex,OwnerTel,EnterTime,EndTime,ResideMode)
-          values (#{OwnerID},#{OwnerPwd},#{OwnerName},#{Sex},#{OwneTel},#{EnterTime},#{EndTime},#{ResideMode})
+          values (#{OwnerID},#{OwnerPwd},#{OwnerName},#{Sex},#{OwnerTel},#{EnterTime},#{EndTime},#{ResideMode})
+     </insert>
+     <insert id="InsertOwnerHouse">
+          insert into HouseInfo (HouseID,OwnerID,HouseAddress,HouseArea)
+          values (#{HouseID},#{OwnerID},#{HouseAddress},#{HouseArea})
      </insert>
      <update id="updateOwner">
           update OwnerInfo

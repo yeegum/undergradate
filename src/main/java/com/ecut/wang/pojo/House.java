@@ -8,5 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class House {
-
+    private String HouseID;
+    private String OwnerID;
+    private String HouseAddress;
+    private int HouseArea;
 }
