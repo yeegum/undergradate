@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecut.wang.dao.IOwnerDao">
+     <select id="getAllList" resultType="com.ecut.wang.pojo.Owner">
+          select a.OwnerID,a.OwnerPwd,a.OwnerName,a.Sex,a.OwnerTel,a.EnterTime,a.EndTime,h.HouseAddress from OwnerInfo as a
+left join HouseInfo as h on h.OwnerID=a.OwnerID
+     </select>
+     <select id="likeSearchOwner" resultType="com.ecut.wang.pojo.Owner" parameterType="Owner">
+         select a.OwnerID,a.OwnerPwd,a.OwnerName,a.Sex,a.OwnerTel,a.EnterTime,a.EndTime,a.ResideMode,h.HouseAddress from OwnerInfo as a
+          left join HouseInfo as h on h.OwnerID=a.OwnerID
+          <where>
+                    <if test="OwnerName !=null and OwnerName !=''">
+                         AND a.OwnerName LIKE CONCAT('%',#{OwnerName},'%')
+                    </if>
+                    <if test="HouseAddress !=null and HouseAddress !=''">
+                         AND h.HouseAddress LIKE concat('%', #{HouseAddress},'%')
+                    </if>
+                    <if test="OwnerTel !=null and OwnerTel !=''">
+                         AND a.OwnerTel LIKE CONCAT('%',#{OwnerTel},'%')
+                    </if>
+                    <if test="ResideMode !=null and ResideMode !=''">
+                         AND a.ResideMode = #{ResideMode}
+                    </if>
+                    <if test="EnterTime !=null and EnterTime !=''">
+                         AND a.EnterTime > #{EnterTime}
+                    </if>
+                    <if test="EndTime !=null and EndTime !=''">
+                         AND a.EndTime > #{EndTime}
+                    </if>
+          </where>
+     </select>
+     <select id="getOwnerInfoById" resultType="com.ecut.wang.pojo.Owner">
+          select a.OwnerID a.OwnerPwd,a.OwnerName,a.Sex,a.OwnerTel,a.EnterTime,a.EndTime,h.HouseAddress from OwnerInfo as a
+where a.OwnerID=#{OwnerID}
+     </select>
+     <insert id="InsertNewOwner">
+          insert into OwnerInfo (OwnerID,OwnerPwd,OwnerName,Sex,OwnerTel,EnterTime,EndTime,ResideMode)
+          values (#{OwnerID},#{OwnerPwd},#{OwnerName},#{Sex},#{OwneTel},#{EnterTime},#{EndTime},#{ResideMode})
+     </insert>
+     <update id="updateOwner">
+          update OwnerInfo
+          set OwnerPwd=#{OwnerPwd},OwnerName=#{OwnerName},Sex=#{Sex},OwnerTel=#{OwnerTel},EnterTime=#{EnterTime},EndTime=#{EndTime}
+          where OwnerID=#{OwnerID}
+     </update>
+</mapper>
