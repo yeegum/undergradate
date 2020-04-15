@@ -14,7 +14,7 @@ public class SecurityHandler {
     @Autowired
     ISecurityService securityService;
     @RequestMapping(value = "likeSearchSecurity",method = RequestMethod.GET)
-    public Result likeSearchSecurity(Security security){
+    public Result likeSearchSecurity(Security  security){
         return securityService.likeSearchSecurity(security);
     }
     @RequestMapping(value = "insertNewSecurity",method = RequestMethod.GET)
