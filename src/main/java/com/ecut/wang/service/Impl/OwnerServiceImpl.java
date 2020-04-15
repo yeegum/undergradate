@@ -7,10 +7,8 @@ import com.ecut.wang.service.IOwnerService;
 import com.ecut.wang.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.IdGenerator;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class OwnerServiceImpl implements IOwnerService {
@@ -22,12 +20,12 @@ public class OwnerServiceImpl implements IOwnerService {
         Result result=new Result();
         List<Owner> ownerList = ownerDao.getAllList();
         if (!ownerList.isEmpty()){
-        result.setCode(200);
+        result.setStatus(200);
         result.setMsg("查询成功");
         result.setData(ownerList);
         }else {
-            result.setCode(200);
-            result.setMsg("查询成功");
+            result.setStatus(201);
+            result.setMsg("查询失败");
             result.setData(ownerList);
         }
         return result;
@@ -38,11 +36,11 @@ public class OwnerServiceImpl implements IOwnerService {
         Result result=new Result();
         List<Owner> ownerList = ownerDao.likeSearchOwner(owner);
         if (!ownerList.isEmpty()){
-            result.setCode(Result.SUCCESS_CODE);
+            result.setData(Result.SUCCESS_CODE);
             result.setMsg("查询成功");
             result.setData(ownerList);
         }else {
-            result.setCode(Result.FAIL_CODE);
+            result.setData(Result.FAIL_CODE);
             result.setMsg("查询为空");
         }
         return result;
@@ -54,11 +52,11 @@ public class OwnerServiceImpl implements IOwnerService {
 
         if (OwnerID != null) {
             Owner owner = ownerDao.getOwnerInfoById(OwnerID);
-            result.setCode(Result.SUCCESS_CODE);
+            result.setData(Result.SUCCESS_CODE);
             result.setMsg("查询成功");
             result.setData(owner);
         }else {
-            result.setCode(Result.FAIL_CODE);
+            result.setData(Result.FAIL_CODE);
             result.setMsg("查询失败，用户ID不能为空");
         }
         return result;
@@ -71,24 +69,24 @@ public class OwnerServiceImpl implements IOwnerService {
         owner.setOwnerID(OwnerID);
         house.setHouseID(HouseID);
         house.setOwnerID(OwnerID);
-        if (ownerDao.InsertNewOwner(owner)!=-1&&ownerDao.InsertOwnerHouse(house)!=-1){
-            result.setCode(Result.SUCCESS_CODE);
+        if (ownerDao.InsertNewOwner(owner)>=1&&ownerDao.InsertOwnerHouse(house)>=1){
+            result.setData(Result.SUCCESS_CODE);
             result.setMsg("新增成功");
         }else {
-            result.setCode(Result.FAIL_CODE);
+            result.setData(Result.FAIL_CODE);
             result.setMsg("新增失败");
         }
         return result;
     }
 
     @Override
-    public Result updateOwner(Owner owner) {
+    public Result updateOwner(Owner owner,House house) {
         Result result=new Result();
-        if (ownerDao.updateOwner(owner)!=null){
-            result.setCode(Result.SUCCESS_CODE);
+        if (ownerDao.updateOwner(owner)>=1&&ownerDao.updateOwnerHouse(house)>=1){
+            result.setData(Result.SUCCESS_CODE);
             result.setMsg("更改成功！");
         }else {
-            result.setCode(Result.SUCCESS_CODE);
+            result.setData(Result.FAIL_CODE);
             result.setMsg("更改失败");
         }
         return result;

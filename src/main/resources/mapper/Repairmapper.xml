@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecut.wang.dao.IRepairDao">
+    <select id="likeSearchRepair" resultType="com.ecut.wang.pojo.Repair">
+        select r.*,o.OwnerName,o.OwnerTel,s.StaffName,s.StaffTel,h.HouseAddress from RepairInfo r
+        left join  StaffInfo s on s.StaffID=r.StaffID
+        left join OwnerInfo o on o.OwnerID=r.OwnerID
+        left join HouseInfo h on h.OwnerID=o.OwnerID
+        <where>
+            <if test="OwnerName !=null and OwnerName !=''">
+                AND o.OwnerName LIKE CONCAT('%',#{OwnerName},'%')
+            </if>
+            <if test="OwnerTel !=null and OwnerTel !=''">
+                AND o.OwnerTel like CONCAT ('%',#{OwnerTel},'%')
+            </if>
+            <if test="HouseAddress !=null and HouseAddress !=''">
+                AND h.HouseAddress like CONCAT ('%',#{HouseAddress},'%')
+            </if>
+            <if test="RepairState !=null and RepairState !=''">
+                AND r.RepairState=#{RepairState}
+            </if>
+            <if test="RepairTime !=null">
+                AND #{RepairTime1} &lt; r.RepairTime &lt; #{RepairTime2}
+            </if>
+            <if test="StaffName !=null and StaffName !=''">
+                AND s.StaffName LIKE CONCAT('%',#{StaffName},'%')
+            </if>
+        </where>
+    </select>
+    <insert id="insertNewRepair">
+        insert into RepairInfo (ID,OwnerID,HouseAddress,RepairContent,StaffID,RepairState,RepairResult,RepairTime)
+        values (#{ID},#{OwnerID},#{HouseAddress},#{RepairContent},#{StaffID},#{RepairState},#{RepairResult}
+        ,#{RepairTime})
+    </insert>
+    <update id="updateStaffRepair">
+        update RepairInfo
+        set RepairState=#{RepairState},StaffID=#{StaffID}
+        where ID=#{ID}
+    </update>
+    <update id="updateOwnerRepair">
+        update RepairInfo
+        set RepairResult=#{RepairResult}
+        where ID=#{ID}
+    </update>
+    <select id="getRepairById" resultType="com.ecut.wang.pojo.Repair">
+        select r.*,o.OwnerName,o.OwnerTel,s.StaffName,s.StaffTel,h.HouseAddress from RepairInfo r
+                                                                                         left join  StaffInfo s on s.StaffID=r.StaffID
+                                                                                         left join OwnerInfo o on o.OwnerID=r.OwnerID
+                                                                                         left join HouseInfo h on h.OwnerID=o.OwnerID
+        where r.ID=#{ID}
+    </select>
+</mapper>

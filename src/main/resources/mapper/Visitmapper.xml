@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecut.wang.dao.IVisitDao">
+    <select id="likeSearchVisit" resultType="com.ecut.wang.pojo.Visit">
+        select v.*,o.OwnerName,s.StaffName,h.HouseAddress from VisitInfo v
+        left join  StaffInfo s on s.StaffID=v.StaffID
+        left join OwnerInfo o on o.OwnerID=v.OwnerID
+        left join HouseInfo h on h.OwnerID=o.OwnerID
+        <where>
+            <if test="OwnerName !=null and OwnerName !=''">
+                AND o.OwnerName LIKE CONCAT('%',#{OwnerName},'%')
+            </if>
+            <if test="Visitor !=null and Visitor !=''">
+                AND v.Visitor like CONCAT ('%',#{Visitor},'%')
+            </if>
+            <if test="Sex !=null and Sex !=''">
+                AND v.Sex =#{Sex}
+            </if>
+            <if test="HouseAddress !=null and HouseAddress !=''">
+                AND h.HouseAddress like CONCAT ('%',#{HouseAddress},'%')
+            </if>
+            <if test="Tel !=null and Tel !=''">
+                AND v.Tel=#{Tel}
+            </if>
+            <if test="StaffName !=null and StaffName !=''">
+                AND s.StaffName LIKE CONCAT('%',#{StaffName},'%')
+            </if>
+            <if test="ComeTime !=null">
+                AND #{ComeTime1} &lt; v.ComeTime &lt; #{ComeTime2}
+            </if>
+            <if test="LeftTime !=null">
+                AND #{LeftTime1} &lt; v.LeftTime &lt; #{LeftTime2}
+            </if>
+        </where>
+    </select>
+    <insert id="insertNewVisit">
+        insert into VisitInfo (ID,OwnerID,Sex,Tel,ComeTime,StaffID,Visitor)
+        values (#{ID},#{OwnerID},#{Sex},#{Tel},#{ComeTime},#{StaffID}
+        ,#{Visitor})
+    </insert>
+    <update id="updateVisit">
+        update VisitInfo
+        set LeftTime=#{LeftTime}
+        where ID=#{ID}
+    </update>
+    <select id="getVisitById" resultType="com.ecut.wang.pojo.Visit">
+        select v.*,o.OwnerName,s.StaffName,h.HouseAddress from VisitInfo v
+                                                                   left join  StaffInfo s on s.StaffID=v.StaffID
+                                                                   left join OwnerInfo o on o.OwnerID=v.OwnerID
+                                                                   left join HouseInfo h on h.OwnerID=o.OwnerID
+        where v.ID=#{ID}
+    </select>
+</mapper>

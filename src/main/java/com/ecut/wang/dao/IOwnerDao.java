@@ -13,4 +13,6 @@ public interface IOwnerDao {
      Integer InsertNewOwner(Owner owner);
      Integer updateOwner(Owner owner);
      Integer InsertOwnerHouse(House house);
+     Integer updateOwnerHouse(House house);
+     Owner getOwnerByHouseAddress(String HouserAddress);
 }

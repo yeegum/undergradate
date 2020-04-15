@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecut.wang.dao.ISecurityDao">
+    <!--查到的信息，检查人可能为空，所以得用别的dao来查检查人的姓名-->
+    <select id="likeSearchSecurity" resultType="com.ecut.wang.pojo.Security">
+        select se.* from SecurityInfo se
+                        left join StaffInfo s on s.StaffID=se.StaffID
+        <where>
+            <if test="BuildingNumber !=null and BuildingNumber !=''">
+                AND se.BuildingNumber LIKE CONCAT('%',#{BuildingNumber},'%')
+            </if>
+            <if test="CheckMan !=null and CheckMan !=''">
+                AND se.CheckMan like CONCAT ('%',#{CheckMan},'%')
+            </if>
+            <if test="Period !=null and Period !=''">
+                AND se.Period = #{Period}
+            </if>
+        </where>
+    </select>
+    <insert id="insertNewSecurity">
+        insert into SecurityInfo(ID,StaffID,CheckMan,Date,Period,BuildingNumber,Population,FireControl,Lighting,Security,RescuePath)
+        values (#{ID},#{StaffID},#{CheckMan},#{Date},#{Period},#{BuildingNumber},#{Population},#{FireControl},#{Lighting},#{Security},#{RescuePath})
+    </insert>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecut.wang.dao.IParkingDao">
+    <select id="likeSearchParking" resultType="com.ecut.wang.pojo.Parking">
+        select p.*,o.* from ParkingInfo p
+          left join  CarInfo ca on ca.CarID=p.CarID
+          left join OwnerInfo o on o.OwnerID=ca.OwnerID
+        <where>
+            <if test="OwnerName !=null and OwnerName !=''">
+                AND o.OwnerName LIKE CONCAT('%',#{OwnerName},'%')
+            </if>
+            <if test="CarID !=null and CarID !=''">
+                AND p.CarID like CONCAT ('%',#{CarID},'%')
+            </if>
+            <if test="EnterTime !=null">
+                AND #{EnterTime1} &lt; a.EnterTime &lt; #{EnterTime2}
+            </if>
+            <if test="EndTime !=null">
+                AND #{EndTime1} &lt; a.EndTime &lt; #{EndTime2}
+            </if>
+        </where> 
+    </select>
+    <insert id="insertNewParking">
+        insert into ParkingInfo (ID,CarID,EnterTime,OutTime,CarKind,PayWay,CarFee)
+        values (#{ID},#{CarID},#{EnterTime},#{OutTime},#{CarKind},#{PayWay},#{CarFee})
+    </insert>
+    <update id="updateParking">
+        update ParkingInfo
+        set OutTime=#{OutTime},PayWay=#{PayWay},CarFee=#{CarFee}
+        where ID=#{ID}
+    </update>
+    <select id="getParkingById" resultType="com.ecut.wang.pojo.Parking">
+        select p.*,o.OwnerName from ParkingInfo p left join  CarInfo ca on ca.CarID=p.CarID
+                                                  left join OwnerInfo o on o.OwnerID=ca.OwnerID
+        where p.ID=#{ID}
+    </select>
+    <select id="getOwnerByCarID" resultType="com.ecut.wang.pojo.Owner">
+        select o.* from OwnerInfo o left join CarInfo ca on ca.OwnerID=o.OwnerID
+        where ca.CarID=#{CarID}
+    </select>
+</mapper>

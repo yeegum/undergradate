@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecut.wang.dao.IStaffDao">
+    <select id="likeSearchStaff" resultType="com.ecut.wang.pojo.Staff">
+        select s.* from StaffInfo s where s.IsValid=1
+        <where>
+            <if test="DeptName !=null and DeptName !=''">
+                AND s.DeptName LIKE CONCAT('%',#{DeptName},'%')
+            </if>
+            <if test="StaffName !=null and StaffName !=''">
+                AND s.StaffName like CONCAT ('%',#{StaffName},'%')
+            </if>
+            <if test="StaffID !=null and StaffID !=''">
+                AND s.StaffID like CONCAT ('%',#{StaffID},'%')
+            </if>
+            <if test="StaffTel !=null and StaffTel !=''">
+                AND s.StaffTel like CONCAT ('%',#{StaffTel},'%')
+            </if>
+            <if test="Role !=null and Role !=''">
+                AND s.Role like CONCAT ('%',#{Role},'%')
+            </if>
+        </where>
+    </select>
+    <insert id="insertNewStaff">
+        insert into StaffInfo(StaffID,StaffName,StaffPwd,StaffSex,StaffTel,Role,DeptName)
+        values (#{StaffID},#{StaffName},#{StaffPwd},#{StaffSex},#{StaffTel},#{Role},#{DeptName})
+    </insert>
+    <update id="updateStaff">
+        update StaffInfo
+        set StaffName=#{StaffName},StaffPwd=#{StaffPwd},StaffSex=#{StaffSex},StaffTel=#{StaffTel},
+            Role=#{Role},DeptName=#{DeptName}
+        where StaffID=#{StaffID}
+    </update>
+    <select id="getStaffByStaffID" resultType="com.ecut.wang.pojo.Staff">
+        select s.* from StaffInfo s
+        where s.StaffID=#{StaffID}
+    </select>
+</mapper>

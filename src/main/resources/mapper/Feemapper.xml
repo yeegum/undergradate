@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecut.wang.dao.IFeeDao">
+    <select id="likeSearchFee" resultType="com.ecut.wang.pojo.Fee">
+        select f.*,o.*,s.StaffName,h.HouseAddress from FeeInfo f
+        left join StaffInfo s on s.StaffID=f.StaffID
+        left join OwnerInfo o on o.OwnerID=f.OwnerID
+        left join HouseInfo h on h.OwnerID=o.OwnerID
+        <where>
+            <if test="OwnerName !=null and OwnerName !=''">
+                AND o.OwnerName LIKE CONCAT('%',#{OwnerName},'%')
+            </if>
+            <if test="OwnerTel !=null and OwnerTel !=''">
+                AND o.OwnerTel like CONCAT ('%',#{OwnerTel},'%')
+            </if>
+            <if test="HouseAddress !=null and HouseAddress !=''">
+                AND h.HouseAddress like CONCAT ('%',#{HouseAddress},'%')
+            </if>
+            <if test="IsPay !=null and IsPay !=''">
+                AND f.IsPay=#{IsPay}
+            </if>
+            <if test="PayTime !=null">
+                AND #{PayTime1} &lt; f.PayTime &lt; #{PayTime2}
+            </if>
+        </where>
+    </select>
+    <insert id="insertNewFee">
+        insert into FeeInfo (FeeID, OwnerID, FeeTime, PayTime, WaterFee, ElectricFee, PropertyFee, TotalCost, IsPay,
+                             StaffID, LateFee)
+        values (#{FeeID}, #{OwnerID}, #{FeeTime}, #{PayTime}, #{WaterFee}, #{ElectricFee}, #{PropertyFee}, #{TotalCost},
+                #{IsPay}, #{StaffID}, #{LateFee})
+    </insert>
+    <update id="updateFee">
+        update FeeInfo
+        set IsPay=#{IsPay},
+            PayTime=#{PayTime}
+        where FeeID = #{FeeID}
+    </update>
+    <select id="getFeeById" resultType="com.ecut.wang.pojo.Fee">
+        select f.*,o.*,s.StaffName,h.HouseAddress
+        from FeeInfo f
+                 left join StaffInfo s on s.StaffID = f.StaffID
+                 left join OwnerInfo o on o.OwnerID = f.OwnerID
+                 left join HouseInfo h on h.OwnerID = o.OwnerID
+        where f.FeeID = #{FeeID}
+    </select>
+</mapper>

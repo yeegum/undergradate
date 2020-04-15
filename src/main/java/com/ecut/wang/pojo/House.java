@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class House {
     private String HouseID;
     private String OwnerID;
-    private String HouseAddress;
-    private int HouseArea;
+    private String HouseAddress;//住址
+    private int HouseArea;//住宅面积
 }
