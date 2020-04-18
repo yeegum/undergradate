@@ -36,4 +36,12 @@
         select s.* from StaffInfo s
         where s.StaffID=#{StaffID}
     </select>
+    <delete id="deleteStaff">
+        delete from StaffInfo s where s.StaffID=#{StaffID}
+    </delete>
+    <!--员工登录-->
+    <select id="StaffLoginByStaffPwd" resultType="com.ecut.wang.pojo.Staff">
+        select s.*
+        from StaffInfo s where s.StaffID=#{StaffID} and s.StaffPwd=#{StaffPwd}
+    </select>
 </mapper>

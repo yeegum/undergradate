@@ -67,4 +67,19 @@ public class StaffServiceImpl implements IStaffService {
             return Result.UpdateFail();
         }
     }
+
+    @Override
+    public Result StaffLoginByStaffPwd(Staff staff) {
+        Staff staff1 = staffDao.getStaffByStaffID(staff.getStaffID());
+        if (staff1!=null){
+            Staff staff2 = staffDao.StaffLoginByStaffPwd(staff);
+            if (staff2!=null){
+                return Result.LoginSuccess();
+            }else {
+                return Result.LoginFail();
+            }
+        }else {
+            return Result.CheckFail();
+        }
+    }
 }

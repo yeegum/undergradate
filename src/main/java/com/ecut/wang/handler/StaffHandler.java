@@ -30,4 +30,8 @@ public class StaffHandler {
     public Result updateStaff(Staff staff){
         return staffService.updateStaff(staff);
     }
+    @RequestMapping(value = "StaffLoginByStaffPwd",method = RequestMethod.GET)
+    public Result StaffLoginByStaffPwd(Staff staff){
+        return staffService.StaffLoginByStaffPwd(staff);
+    }
 }

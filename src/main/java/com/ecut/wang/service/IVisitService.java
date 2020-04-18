@@ -8,4 +8,5 @@ public interface IVisitService {
     Result insertNewVisit(Visit visit);
     Result updateVisit(Visit visit);
     Result getVisitById(String ID);
+
 }

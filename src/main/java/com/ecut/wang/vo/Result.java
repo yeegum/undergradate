@@ -16,6 +16,10 @@ public class Result<T> {
     public static final String INSERT_SUCCESS_MSG = "新增成功";
     public static final String UPDATE_FAIL_MSG = "更改失败";
     public static final String UPDATE_SUCCESS_MSG = "更改成功";
+    public static final String LOGIN_SUCCESS_MSG = "身份验证成功";
+    public static final String LOGIN_FAIL_MSG = "身份验证失败";
+    public static final String CHECK_FAIL_MSG = "查无此人";
+//    public static final String CHECK_SUCCESS_MSG = "查询成功";
     private Integer status;
     private String msg;
     private T data;
@@ -60,6 +64,24 @@ public class Result<T> {
         Result result = new Result();
         result.setStatus(FAIL_CODE);
         result.setMsg(UPDATE_FAIL_MSG);
+        return result;
+    }
+    public static Result LoginFail() {
+        Result result = new Result();
+        result.setStatus(FAIL_CODE);
+        result.setMsg(LOGIN_FAIL_MSG);
+        return result;
+    }
+    public static Result LoginSuccess() {
+        Result result = new Result();
+        result.setStatus(SUCCESS_CODE);
+        result.setMsg(LOGIN_SUCCESS_MSG);
+        return result;
+    }
+    public static Result CheckFail() {
+        Result result = new Result();
+        result.setStatus(FAIL_CODE);
+        result.setMsg(CHECK_FAIL_MSG);
         return result;
     }
 }

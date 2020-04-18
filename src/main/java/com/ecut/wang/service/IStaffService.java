@@ -8,4 +8,5 @@ public interface IStaffService {
     Result<Staff> getStaffByStaffID(String StaffID);
     Result insertNewStaff(Staff staff);
     Result updateStaff(Staff staff);
+    Result StaffLoginByStaffPwd(Staff staff);
 }

@@ -3,9 +3,10 @@ package com.ecut.wang.dao;
 import com.ecut.wang.pojo.House;
 import com.ecut.wang.pojo.Owner;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface IOwnerDao {
      List<Owner> getAllList();
      List<Owner> likeSearchOwner(Owner owner);
