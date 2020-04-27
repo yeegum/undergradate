@@ -11,4 +11,6 @@ public interface IOwnerService {
     Result<Owner> getOwnerInfoById(String OwnerID);
     Result InsertNewOwner(Owner owner, House house);
     Result updateOwner(Owner owner,House house);
+    Result loginByOwnerPwd(Owner owner);
+    Result deleteOwner(String OwnerID);
 }

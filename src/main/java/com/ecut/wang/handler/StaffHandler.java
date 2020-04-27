@@ -34,4 +34,8 @@ public class StaffHandler {
     public Result StaffLoginByStaffPwd(Staff staff){
         return staffService.StaffLoginByStaffPwd(staff);
     }
+    @RequestMapping(value = "deleteStaff",method = RequestMethod.GET)
+    public Result deleteStaff(String StaffID){
+        return staffService.deleteStaff(StaffID);
+    }
 }

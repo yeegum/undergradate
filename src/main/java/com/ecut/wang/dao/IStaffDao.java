@@ -11,4 +11,5 @@ public interface IStaffDao {
     int insertNewStaff(Staff staff);
     int updateStaff(Staff staff);
     Staff StaffLoginByStaffPwd(Staff staff);
+    int deleteStaff(String StaffID);
 }

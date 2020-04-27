@@ -9,4 +9,5 @@ public interface IStaffService {
     Result insertNewStaff(Staff staff);
     Result updateStaff(Staff staff);
     Result StaffLoginByStaffPwd(Staff staff);
+    Result deleteStaff(String StaffID);
 }

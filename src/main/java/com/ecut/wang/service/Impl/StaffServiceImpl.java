@@ -82,4 +82,14 @@ public class StaffServiceImpl implements IStaffService {
             return Result.CheckFail();
         }
     }
+
+    @Override
+    public Result deleteStaff(String StaffID) {
+        int i = staffDao.deleteStaff(StaffID);
+        if (i>=0){
+            return Result.DeleteSuccess();
+        }else {
+            return Result.DeleteFail();
+        }
+    }
 }

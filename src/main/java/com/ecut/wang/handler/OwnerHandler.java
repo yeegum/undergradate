@@ -42,4 +42,14 @@ public class OwnerHandler {
         Result result =ownerService.InsertNewOwner(owner,house);
         return result;
     }
+    @RequestMapping(value = "loginByOwnerPwd",method = RequestMethod.GET)
+    @ResponseBody
+    public Result loginByOwnerPwd(Owner owner){
+        return ownerService.loginByOwnerPwd(owner);
+    }
+    @RequestMapping(value = "deleteOwner",method = RequestMethod.GET)
+    @ResponseBody
+    public Result deleteOwner(String OwnerID){
+        return ownerService.deleteOwner(OwnerID);
+    }
 }

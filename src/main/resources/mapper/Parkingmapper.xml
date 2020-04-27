@@ -16,8 +16,8 @@
             <if test="EnterTime !=null">
                 AND #{EnterTime1} &lt; a.EnterTime &lt; #{EnterTime2}
             </if>
-            <if test="EndTime !=null">
-                AND #{EndTime1} &lt; a.EndTime &lt; #{EndTime2}
+            <if test="OutTime !=null">
+                AND #{OutTime1} &lt; a.OutTime &lt; #{OutTime2}
             </if>
         </where> 
     </select>

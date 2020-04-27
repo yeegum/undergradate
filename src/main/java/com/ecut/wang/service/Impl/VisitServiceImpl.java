@@ -32,13 +32,18 @@ public class VisitServiceImpl implements IVisitService {
     public Result insertNewVisit(Visit visit) {
         visit.setID(String.valueOf(System.currentTimeMillis()/1000));
         Owner owner = ownerDao.getOwnerByHouseAddress(visit.getHouseAddress());
-        visit.setOwnerID(owner.getOwnerID());
-        int i = visitDao.insertNewVisit(visit);
-        if (i>=1){
-            return Result.InsertSuccess();
+        if (owner!=null){
+            visit.setOwnerID(owner.getOwnerID());
+            int i = visitDao.insertNewVisit(visit);
+            if (i>=1){
+                return Result.InsertSuccess();
+            }else {
+                return Result.InsertFail();
+            }
         }else {
-            return Result.InsertFail();
+            return Result.SearchFail();
         }
+
     }
 
     @Override

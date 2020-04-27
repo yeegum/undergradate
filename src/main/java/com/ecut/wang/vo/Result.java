@@ -14,6 +14,8 @@ public class Result<T> {
     public static final String SEARCH_SUCCESS_MSG = "查询成功";
     public static final String INSERT_FAIL_MSG = "新增失败";
     public static final String INSERT_SUCCESS_MSG = "新增成功";
+    public static final String DELETE_FAIL_MSG = "删除失败";
+    public static final String DELETE_SUCCESS_MSG = "删除成功";
     public static final String UPDATE_FAIL_MSG = "更改失败";
     public static final String UPDATE_SUCCESS_MSG = "更改成功";
     public static final String LOGIN_SUCCESS_MSG = "身份验证成功";
@@ -82,6 +84,19 @@ public class Result<T> {
         Result result = new Result();
         result.setStatus(FAIL_CODE);
         result.setMsg(CHECK_FAIL_MSG);
+        return result;
+    }
+    public static Result DeleteSuccess() {
+        Result result = new Result();
+        result.setStatus(SUCCESS_CODE);
+        result.setMsg(DELETE_SUCCESS_MSG);
+        return result;
+    }
+
+    public static Result DeleteFail() {
+        Result result = new Result();
+        result.setStatus(FAIL_CODE);
+        result.setMsg(DELETE_FAIL_MSG);
         return result;
     }
 }

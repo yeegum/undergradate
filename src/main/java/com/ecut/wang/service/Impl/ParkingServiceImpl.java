@@ -57,7 +57,6 @@ public class ParkingServiceImpl implements IParkingService {
                 result.setMsg("新增失败");
             }
         }
-
         return result;
     }
 

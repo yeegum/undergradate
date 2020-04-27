@@ -36,9 +36,12 @@
         select s.* from StaffInfo s
         where s.StaffID=#{StaffID}
     </select>
-    <delete id="deleteStaff">
-        delete from StaffInfo s where s.StaffID=#{StaffID}
-    </delete>
+    <!--<delete id="deleteStaff">-->
+        <!--delete from StaffInfo s where s.StaffID=#{StaffID}-->
+    <!--</delete>-->
+    <update id="deleteStaff">
+        update StaffInfo s set s.IsValid = 0 where s.StaffID=#{StaffID}
+    </update>
     <!--员工登录1-->
     <select id="StaffLoginByStaffPwd" resultType="com.ecut.wang.pojo.Staff">
         select s.*
