@@ -7,6 +7,7 @@ import com.ecut.wang.service.IOwnerService;
 import com.ecut.wang.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.util.List;
 
@@ -90,9 +91,11 @@ public class OwnerServiceImpl implements IOwnerService {
     public Result loginByOwnerPwd(Owner owner) {
         Owner ownerInfoById = ownerDao.getOwnerInfoById(owner.getOwnerID());
         if (ownerInfoById!=null){
+            String Pwd= DigestUtils.md5DigestAsHex(owner.getOwnerPwd().getBytes());
+            owner.setOwnerPwd(Pwd);
             Owner login = ownerDao.loginByOwnerPwd(owner);
             if (login!=null){
-                return Result.LoginSuccess();
+                return Result.LoginSuccess(login);
             }else {
                 return Result.LoginFail();
             }

@@ -72,9 +72,11 @@ public class StaffServiceImpl implements IStaffService {
     public Result StaffLoginByStaffPwd(Staff staff) {
         Staff staff1 = staffDao.getStaffByStaffID(staff.getStaffID());
         if (staff1!=null){
+            String MD5Pwd = DigestUtils.md5DigestAsHex(staff.getStaffPwd().getBytes());
+            staff.setStaffPwd(MD5Pwd);
             Staff staff2 = staffDao.StaffLoginByStaffPwd(staff);
             if (staff2!=null){
-                return Result.LoginSuccess();
+                return Result.LoginSuccess(staff2);
             }else {
                 return Result.LoginFail();
             }

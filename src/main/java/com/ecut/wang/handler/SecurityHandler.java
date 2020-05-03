@@ -4,11 +4,13 @@ import com.ecut.wang.pojo.Security;
 import com.ecut.wang.service.ISecurityService;
 import com.ecut.wang.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "http://wyj.yezijun.top",maxAge = 3600)
 @RequestMapping("/api")
 public class SecurityHandler {
     @Autowired

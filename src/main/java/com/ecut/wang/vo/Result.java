@@ -74,10 +74,11 @@ public class Result<T> {
         result.setMsg(LOGIN_FAIL_MSG);
         return result;
     }
-    public static Result LoginSuccess() {
+    public static Result LoginSuccess(Object object) {
         Result result = new Result();
         result.setStatus(SUCCESS_CODE);
         result.setMsg(LOGIN_SUCCESS_MSG);
+        result.setData(object);
         return result;
     }
     public static Result CheckFail() {

@@ -4,6 +4,7 @@ import com.ecut.wang.pojo.Fee;
 import com.ecut.wang.service.IFeeService;
 import com.ecut.wang.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://wyj.yezijun.top",maxAge = 3600)
 @RequestMapping("/api")
 public class FeeHandler {
     @Autowired
